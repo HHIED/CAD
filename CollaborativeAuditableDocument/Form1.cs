@@ -8,17 +8,23 @@ using System.Text;
 using CollaborativeAuditableDocument.FirestoreEntities;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Google.Cloud.Firestore;
 
 namespace CollaborativeAuditableDocument
 {
     public partial class Form1 : Form
     {
-
+        private FirestoreChangeListener listener;
         public Form1()
         {
             InitializeComponent();
-            List<Section> sections = Core.Instance.GetSections().Where(x => x.ApprovedAt==DateTime.Now).ToList();
-            sectionListbox.DataSource = sections;
+            
+            listener = Firestore.instance.ListenToSections(UpdateList);
+        }
+
+        private void UpdateList(List<Section> sections)
+        {   
+            sectionListbox.DataSource = sections.Where(x=>x.ApprovedAt==null).ToList();
         }
 
         private void addBtn_Click(object sender, EventArgs e)
@@ -58,6 +64,11 @@ namespace CollaborativeAuditableDocument
         private void button2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Firestore.instance.StopListener(listener);
         }
     }
 }

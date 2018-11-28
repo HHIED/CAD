@@ -30,6 +30,9 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.sectionListbox = new System.Windows.Forms.ListBox();
+            this.titleTxt = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.addBtn = new System.Windows.Forms.Button();
             this.declineBtn = new System.Windows.Forms.Button();
             this.acceptBtn = new System.Windows.Forms.Button();
@@ -38,12 +41,9 @@
             this.ContentBox = new System.Windows.Forms.RichTextBox();
             this.sectionNumberTxt = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.documentListbox = new System.Windows.Forms.ListBox();
             this.button2 = new System.Windows.Forms.Button();
             this.finalDocBox = new System.Windows.Forms.RichTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.titleTxt = new System.Windows.Forms.TextBox();
-            this.sectionListbox = new System.Windows.Forms.ListBox();
-            this.documentListbox = new System.Windows.Forms.ListBox();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -79,6 +79,30 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Sections";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // sectionListbox
+            // 
+            this.sectionListbox.FormattingEnabled = true;
+            this.sectionListbox.Location = new System.Drawing.Point(492, 16);
+            this.sectionListbox.Name = "sectionListbox";
+            this.sectionListbox.Size = new System.Drawing.Size(531, 485);
+            this.sectionListbox.TabIndex = 10;
+            // 
+            // titleTxt
+            // 
+            this.titleTxt.Location = new System.Drawing.Point(11, 19);
+            this.titleTxt.Name = "titleTxt";
+            this.titleTxt.Size = new System.Drawing.Size(100, 20);
+            this.titleTxt.TabIndex = 9;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(27, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Title";
             // 
             // addBtn
             // 
@@ -156,6 +180,14 @@
             this.tabPage2.Text = "Document";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // documentListbox
+            // 
+            this.documentListbox.FormattingEnabled = true;
+            this.documentListbox.Location = new System.Drawing.Point(17, 24);
+            this.documentListbox.Name = "documentListbox";
+            this.documentListbox.Size = new System.Drawing.Size(488, 472);
+            this.documentListbox.TabIndex = 3;
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(17, 512);
@@ -174,38 +206,6 @@
             this.finalDocBox.TabIndex = 1;
             this.finalDocBox.Text = "";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(27, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Title";
-            // 
-            // titleTxt
-            // 
-            this.titleTxt.Location = new System.Drawing.Point(11, 19);
-            this.titleTxt.Name = "titleTxt";
-            this.titleTxt.Size = new System.Drawing.Size(100, 20);
-            this.titleTxt.TabIndex = 9;
-            // 
-            // sectionListbox
-            // 
-            this.sectionListbox.FormattingEnabled = true;
-            this.sectionListbox.Location = new System.Drawing.Point(492, 16);
-            this.sectionListbox.Name = "sectionListbox";
-            this.sectionListbox.Size = new System.Drawing.Size(531, 485);
-            this.sectionListbox.TabIndex = 10;
-            // 
-            // documentListbox
-            // 
-            this.documentListbox.FormattingEnabled = true;
-            this.documentListbox.Location = new System.Drawing.Point(17, 24);
-            this.documentListbox.Name = "documentListbox";
-            this.documentListbox.Size = new System.Drawing.Size(488, 472);
-            this.documentListbox.TabIndex = 3;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -214,6 +214,7 @@
             this.Controls.Add(this.tabControl);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
