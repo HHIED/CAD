@@ -61,8 +61,21 @@ namespace CollaborativeAuditableDocument
             return docRef.Id;
         }
 
-        public async Task UpdateSection(Section section) {
+        public async Task UpdateSection(string username, Section section) {
             DocumentReference docRef = db.Collection("section").Document(section.Id);
+            string[] approvedBy = new string[] { "username" };
+            Dictionary<string, object> updates = new Dictionary<string, object> {
+                { "Title", section.Title },
+                { "Text", section.Text },
+                { "ApprovedBy", approvedBy },
+                { "ApprovedAt", null }
+            };
+            await docRef.UpdateAsync(updates);
+            await docRef.UpdateAsync("History", FieldValue.ArrayUnion(new HistoryItem {
+                Action = 1,
+                ActionBy = username,
+                ActionAt = DateTime.Now
+            }));
         }
 
         /// <summary>
@@ -90,9 +103,15 @@ namespace CollaborativeAuditableDocument
         }
 
         public async Task<Boolean> CheckUsername(string username) {
+            Console.WriteLine("Checking username: " + username);
             DocumentReference docRef = db.Collection("users").Document(username);
             DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
-            return snapshot.Exists;
+            if(snapshot.Exists) {
+                Console.WriteLine("User found");
+                return true;
+            }
+            Console.WriteLine("User not found");
+            return false;
         }
     }
 }
