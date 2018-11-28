@@ -22,20 +22,21 @@ namespace CollaborativeAuditableDocument
         public FirestoreDb db;
 
         public Firestore() {
-            db = FirestoreDb.Create();
+            db = FirestoreDb.Create("sdu-isl-cad");
         }
 
-        public async Task<Section[]> GetSections() {
+        public async Task<List<Section>> GetSections() {
             CollectionReference docRef = db.Collection("sections");
             QuerySnapshot qs = await docRef.GetSnapshotAsync();
             List<Section> sections = new List<Section>();
             foreach(DocumentSnapshot ds in qs.Documents) {
                 if (ds.Exists) {
                     Section s = ds.ConvertTo<Section>();
+                    s.Id = ds.Id;
                     sections.Add(s);
                 }
             }
-            return sections.ToArray();
+            return sections;
         }
 
         public async Task<string> SaveSection(Section section) {
@@ -46,12 +47,17 @@ namespace CollaborativeAuditableDocument
         public async Task<string> addNewSection(string username, string title, string text, int order) {
             CollectionReference colRef = db.Collection("sections");
             string[] approvedBy = { username };
+            HistoryItem createdItem = new HistoryItem {
+                Action = ActionType.CREATED,
+                ActionBy = username,
+                ActionAt = DateTime.Now
+            };
+            HistoryItem[] history = { createdItem };
             Section section = new Section {
                 Title = title,
                 Text = text,
                 Order = order,
-                CreatedAt = DateTime.Now,
-                CreatedBy = username,
+                History = history,
                 ApprovedBy = approvedBy
             };
             DocumentReference docRef = await colRef.AddAsync(section);
@@ -60,7 +66,7 @@ namespace CollaborativeAuditableDocument
 
         public async Task approveSection(string username, string sectionId) {
             DocumentReference docRef = db.Collection("sections").Document(sectionId);
-
+            
         }
     }
 }

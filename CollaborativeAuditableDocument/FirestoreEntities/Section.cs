@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 using Google.Cloud.Firestore;
 
 namespace CollaborativeAuditableDocument.FirestoreEntities {
     [FirestoreData]
     public class Section {
+        public string Id { get; set; }
         [FirestoreProperty]
         public string Title { get; set; }
         [FirestoreProperty]
@@ -15,9 +17,7 @@ namespace CollaborativeAuditableDocument.FirestoreEntities {
         [FirestoreProperty]
         public int Order { get; set; }
         [FirestoreProperty]
-        public string CreatedBy { get; set; }
-        [FirestoreProperty]
-        public DateTime CreatedAt { get; set; }
+        public HistoryItem[] History { get; set; }
         [FirestoreProperty]
         public string[] ApprovedBy { get; set; }
         [FirestoreProperty]
