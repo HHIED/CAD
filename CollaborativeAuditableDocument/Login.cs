@@ -20,13 +20,7 @@ namespace CollaborativeAuditableDocument
         private void loginBtn_Click(object sender, EventArgs e)
         {
             string userName = userNameTxt.Text;
-            if (Core.Instance.Login(userName))
-            {
-                Core.Instance.User = userName;
-                Form main = new Form1();
-                main.Show();
-                
-            }
+            Core.Instance.Login(userName);
         }
     }
 }

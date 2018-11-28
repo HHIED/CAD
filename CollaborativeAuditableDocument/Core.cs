@@ -28,15 +28,24 @@ namespace CollaborativeAuditableDocument {
             return Firestore.Instance.GetSections().Result;
         }
 
-        public bool Login(string user) {
-            bool test = Firestore.Instance.CheckUsername(user).Result;
-            Console.WriteLine(test);
-            return test;
+        public async void Login(string user) {
+            bool isAuth = await Firestore.Instance.CheckUsername(user);
+            Login(isAuth);
+            User = user;
         }
 
-        internal void AddSection(Section section)
+        private void Login(bool isAuth)
         {
-            throw new NotImplementedException();
+            if (isAuth)
+            {
+                Form1 main = new Form1();
+                main.Show();
+            }
+        }
+
+        internal async void AddSection(Section section)
+        {
+            await Firestore.Instance.AddNewSection(section);
         }
 
         internal void ApproveSection(Section section, string user)

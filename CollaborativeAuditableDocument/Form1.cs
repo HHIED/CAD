@@ -23,11 +23,11 @@ namespace CollaborativeAuditableDocument
         }
 
         private void UpdateList(List<Section> sections)
-        {   
-            sectionListbox.DataSource = sections.Where(x=>x.ApprovedAt==null).ToList();
+        {
+            sectionListbox.DataSource = sections.Where(x => x.ApprovedAt == null).ToList();
             List<Section> documentSections = sections.Where(x => x.ApprovedAt != null).ToList();
             documentListbox.DataSource = documentSections;
-            finalDocBox.Clear();
+            
             this.Invoke((MethodInvoker)delegate { UpdateDocument(documentSections); });
         }
 
@@ -35,6 +35,7 @@ namespace CollaborativeAuditableDocument
 
         private void UpdateDocument(List<Section> sections)
         {
+            finalDocBox.Clear();
             foreach (Section s in sections)
             {
                 finalDocBox.AppendText(s.Title + "\n" + s.Text + "\n\n");
@@ -43,19 +44,14 @@ namespace CollaborativeAuditableDocument
 
         private void addBtn_Click(object sender, EventArgs e)
         {
-            List<HistoryItem> history = new List<HistoryItem>();
-            HistoryItem h = new HistoryItem
-            {
-                Action = 0,
-                ActionBy = Core.Instance.User
-            };
             string[] approvedBy = {Core.Instance.User};
+            DateTime time = new DateTime(0, DateTimeKind.Utc);
             Section section = new Section
             {
                 Title = titleTxt.Text,
+                ApprovedAt = time,
                 Text = ContentBox.Text,
                 Order = int.Parse(sectionNumberTxt.Text),
-                History = history,
                 ApprovedBy = approvedBy
                 
                 
