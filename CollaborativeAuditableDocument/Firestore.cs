@@ -44,23 +44,9 @@ namespace CollaborativeAuditableDocument
             return docRef.Id;
         }
 
-        public async Task<string> AddNewSection(string username, string title, string text, int order) {
+        public async Task<string> AddNewSection(Section section) {
             CollectionReference colRef = db.Collection("sections");
-            string[] approvedBy = { username };
-            HistoryItem createdItem = new HistoryItem {
-                Action = ActionType.CREATED,
-                ActionBy = username,
-                ActionAt = DateTime.Now
-            };
-            List<HistoryItem> history = new List<HistoryItem>();
-            history.Add(createdItem);
-            Section section = new Section {
-                Title = title,
-                Text = text,
-                Order = order,
-                History = history,
-                ApprovedBy = approvedBy
-            };
+            
             DocumentReference docRef = await colRef.AddAsync(section);
             return docRef.Id;
         }

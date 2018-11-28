@@ -39,7 +39,8 @@ namespace CollaborativeAuditableDocument {
 
         internal void ApproveSection(Section section, string user)
         {
-            throw new NotImplementedException();
+            
+            bool isApproved = Firestore.instance.ApproveSection(user, section.Id).Result;
         }
 
         internal void DeclineSection(Section section, string user)
@@ -47,7 +48,7 @@ namespace CollaborativeAuditableDocument {
             throw new NotImplementedException();
         }
 
-        internal void EditSection(Section oldSection, Section section)
+        internal void EditSection(Section section)
         {
             throw new NotImplementedException();
         }

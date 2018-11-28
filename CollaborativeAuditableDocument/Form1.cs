@@ -29,12 +29,15 @@ namespace CollaborativeAuditableDocument
                 Action = ActionType.CREATED,
                 ActionBy = Core.Instance.User
             };
+            string[] approvedBy = {Core.Instance.User};
             Section section = new Section
             {
                 Title = titleTxt.Text,
                 Text = ContentBox.Text,
                 Order = int.Parse(sectionNumberTxt.Text),
-                History = history
+                History = history,
+                ApprovedBy = approvedBy
+                
                 
             };
             Core.Instance.AddSection(section);

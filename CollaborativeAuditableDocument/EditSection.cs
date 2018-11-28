@@ -13,7 +13,7 @@ namespace CollaborativeAuditableDocument
 {
     public partial class EditSection : Form
     {
-        private Section oldSection;
+        private Section section;
 
         public EditSection(Section section)
         {
@@ -21,12 +21,12 @@ namespace CollaborativeAuditableDocument
             titleTxt.Text = section.Title;
             ContentBox.Text = section.Text;
             sectionNumberTxt.Text = section.Order.ToString();
-            oldSection = section;
+            section = section;
         }
 
         private void editComplete_Click(object sender, EventArgs e)
         {
-            List<HistoryItem> history = oldSection.History;
+            List<HistoryItem> history = section.History;
             HistoryItem h = new HistoryItem
             {
                 Action = ActionType.CREATED,
@@ -34,15 +34,9 @@ namespace CollaborativeAuditableDocument
                 ActionBy = Core.Instance.User
             };
             history.Add(h);
-            Section section = new Section
-            {
-                Title = titleTxt.Text,
-                Text = ContentBox.Text,
-                Order = int.Parse(sectionNumberTxt.Text),
-                History = history
-
-            };
-            Core.Instance.EditSection(oldSection, section);
+            section.History = history;
+            
+            Core.Instance.EditSection(section);
         }
     }
 }
