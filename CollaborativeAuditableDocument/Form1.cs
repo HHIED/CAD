@@ -28,11 +28,17 @@ namespace CollaborativeAuditableDocument
             List<Section> documentSections = sections.Where(x => x.ApprovedAt != null).ToList();
             documentListbox.DataSource = documentSections;
             finalDocBox.Clear();
-            foreach(Section s in documentSections)
+            this.Invoke((MethodInvoker)delegate { UpdateDocument(documentSections); });
+        }
+
+
+
+        private void UpdateDocument(List<Section> sections)
+        {
+            foreach (Section s in sections)
             {
                 finalDocBox.AppendText(s.Title + "\n" + s.Text + "\n\n");
             }
-
         }
 
         private void addBtn_Click(object sender, EventArgs e)
