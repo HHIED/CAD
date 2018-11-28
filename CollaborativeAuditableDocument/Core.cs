@@ -29,7 +29,9 @@ namespace CollaborativeAuditableDocument {
         }
 
         public bool Login(string user) {
-            return true;
+            bool test = Firestore.Instance.CheckUsername(user).Result;
+            Console.WriteLine(test);
+            return test;
         }
 
         internal void AddSection(Section section)
