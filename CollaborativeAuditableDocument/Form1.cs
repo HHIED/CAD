@@ -13,20 +13,28 @@ namespace CollaborativeAuditableDocument
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
+            List<Section> sections = Core.Instance.GetSections().Where(x => x.ApprovedAt==DateTime.Now).ToList();
+            sectionListbox.DataSource = sections;
         }
 
         private void addBtn_Click(object sender, EventArgs e)
         {
+            List<HistoryItem> history = new List<HistoryItem>();
+            HistoryItem h = new HistoryItem
+            {
+                Action = ActionType.CREATED,
+                ActionBy = Core.Instance.User
+            };
             Section section = new Section
             {
                 Title = titleTxt.Text,
                 Text = ContentBox.Text,
                 Order = int.Parse(sectionNumberTxt.Text),
-                CreatedAt = DateTime.Now,
-                CreatedBy = Core.Instance.User
+                History = history
                 
             };
             Core.Instance.AddSection(section);

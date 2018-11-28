@@ -23,6 +23,11 @@ namespace CollaborativeAuditableDocument {
             }
         }
 
+        public List<Section> GetSections()
+        {
+            return Firestore.instance.GetSections().Result;
+        }
+
         public bool Login(string user) {
             return true;
         }

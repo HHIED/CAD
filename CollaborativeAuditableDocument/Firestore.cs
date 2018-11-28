@@ -52,7 +52,8 @@ namespace CollaborativeAuditableDocument
                 ActionBy = username,
                 ActionAt = DateTime.Now
             };
-            HistoryItem[] history = { createdItem };
+            List<HistoryItem> history = new List<HistoryItem>();
+            history.Add(createdItem);
             Section section = new Section {
                 Title = title,
                 Text = text,
