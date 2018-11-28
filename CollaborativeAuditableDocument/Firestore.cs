@@ -57,21 +57,9 @@ namespace CollaborativeAuditableDocument
         }
 
         public async Task<string> AddNewSection(string username, Section section) {
-            Query heigherOrder = db.Collection("sections").WhereGreaterThanOrEqualTo("Order", section.Order);
-            QuerySnapshot querySnapshot = await heigherOrder.GetSnapshotAsync();
-            Dictionary<string, int> newOrders = new Dictionary<string, int>();
-            foreach(DocumentSnapshot doc in querySnapshot.Documents) {
-                Section s = doc.ConvertTo<Section>();
-                newOrders.Add(doc.Id, doc.GetValue<int>("Order"));
-            }
+            await UpdateOrders(section.Order);
 
-            WriteBatch batch = db.StartBatch();
-
-            foreach(KeyValuePair<string, int> entry in newOrders) {
-
-            }
-
-            await batch.CommitAsync();
+            //TODO: Finish add new section.
 
             DocumentReference docRef = await db.Collection("sections").AddAsync(section);
             return docRef.Id;
@@ -92,6 +80,25 @@ namespace CollaborativeAuditableDocument
                 ActionBy = username,
                 ActionAt = DateTime.Now
             }));
+        }
+
+        private async Task UpdateOrders(int order) {
+            Query heigherOrder = db.Collection("sections").WhereGreaterThanOrEqualTo("Order", order);
+            QuerySnapshot querySnapshot = await heigherOrder.GetSnapshotAsync();
+            Dictionary<string, int> newOrders = new Dictionary<string, int>();
+            foreach (DocumentSnapshot doc in querySnapshot.Documents) {
+                Section s = doc.ConvertTo<Section>();
+                newOrders.Add(doc.Id, doc.GetValue<int>("Order"));
+            }
+
+            WriteBatch batch = db.StartBatch();
+
+            foreach (KeyValuePair<string, int> entry in newOrders) {
+                DocumentReference updateRef = db.Collection("sections").Document(entry.Key);
+                batch.Update(updateRef, "Order", entry.Value);
+            }
+
+            await batch.CommitAsync();
         }
 
         /// <summary>
