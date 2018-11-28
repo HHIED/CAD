@@ -14,6 +14,7 @@ namespace CollaborativeAuditableDocument
         [STAThread]
         static void Main()
         {
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "keyfile.json");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Login());
