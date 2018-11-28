@@ -10,7 +10,7 @@ using CollaborativeAuditableDocument.FirestoreEntities;
 namespace CollaborativeAuditableDocument
 {
     public class Firestore {
-        public static Firestore instance;
+        private static Firestore instance;
 
         public static Firestore Instance {
             get {
@@ -21,7 +21,7 @@ namespace CollaborativeAuditableDocument
             }
         }
 
-        public FirestoreDb db;
+        private FirestoreDb db;
 
         public Firestore() {
             db = FirestoreDb.Create("sdu-isl-cad");
@@ -60,6 +60,8 @@ namespace CollaborativeAuditableDocument
             DocumentReference docRef = await db.Collection("sections").AddAsync(section);
             return docRef.Id;
         }
+
+
 
         /// <summary>
         /// Approves a section. Returns true if the section has been approved by everyone.
