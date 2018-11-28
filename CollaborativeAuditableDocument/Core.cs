@@ -8,6 +8,7 @@ namespace CollaborativeAuditableDocument {
     public sealed class Core {
         public string User {get; set; }
         private static Core instance = null;
+        public Form1 main { get; set; }
 
         private Core() {
         }
