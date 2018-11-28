@@ -30,6 +30,7 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.sectionGrid = new System.Windows.Forms.DataGridView();
             this.titleTxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.addBtn = new System.Windows.Forms.Button();
@@ -40,15 +41,14 @@
             this.ContentBox = new System.Windows.Forms.RichTextBox();
             this.sectionNumberTxt = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.finalDocBox = new System.Windows.Forms.RichTextBox();
             this.documentSectionGrid = new System.Windows.Forms.DataGridView();
-            this.sectionGrid = new System.Windows.Forms.DataGridView();
+            this.editBtn = new System.Windows.Forms.Button();
+            this.finalDocBox = new System.Windows.Forms.RichTextBox();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sectionGrid)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentSectionGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sectionGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -81,6 +81,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Sections";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // sectionGrid
+            // 
+            this.sectionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.sectionGrid.Location = new System.Drawing.Point(492, 33);
+            this.sectionGrid.Name = "sectionGrid";
+            this.sectionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.sectionGrid.Size = new System.Drawing.Size(549, 478);
+            this.sectionGrid.TabIndex = 10;
             // 
             // titleTxt
             // 
@@ -164,7 +173,7 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.documentSectionGrid);
-            this.tabPage2.Controls.Add(this.button2);
+            this.tabPage2.Controls.Add(this.editBtn);
             this.tabPage2.Controls.Add(this.finalDocBox);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -174,15 +183,24 @@
             this.tabPage2.Text = "Document";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // documentSectionGrid
             // 
-            this.button2.Location = new System.Drawing.Point(17, 512);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Edit";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.documentSectionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.documentSectionGrid.Location = new System.Drawing.Point(17, 24);
+            this.documentSectionGrid.Name = "documentSectionGrid";
+            this.documentSectionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.documentSectionGrid.Size = new System.Drawing.Size(501, 482);
+            this.documentSectionGrid.TabIndex = 3;
+            // 
+            // editBtn
+            // 
+            this.editBtn.Location = new System.Drawing.Point(17, 512);
+            this.editBtn.Name = "editBtn";
+            this.editBtn.Size = new System.Drawing.Size(75, 23);
+            this.editBtn.TabIndex = 2;
+            this.editBtn.Text = "Edit";
+            this.editBtn.UseVisualStyleBackColor = true;
+            this.editBtn.Click += new System.EventHandler(this.editBtn_Click);
             // 
             // finalDocBox
             // 
@@ -191,23 +209,6 @@
             this.finalDocBox.Size = new System.Drawing.Size(464, 482);
             this.finalDocBox.TabIndex = 1;
             this.finalDocBox.Text = "";
-            // 
-            // documentSectionGrid
-            // 
-            this.documentSectionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.documentSectionGrid.Location = new System.Drawing.Point(17, 24);
-            this.documentSectionGrid.Name = "documentSectionGrid";
-            this.documentSectionGrid.Size = new System.Drawing.Size(501, 482);
-            this.documentSectionGrid.TabIndex = 3;
-            // 
-            // sectionGrid
-            // 
-            this.sectionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.sectionGrid.Location = new System.Drawing.Point(492, 33);
-            this.sectionGrid.Name = "sectionGrid";
-            this.sectionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.sectionGrid.Size = new System.Drawing.Size(549, 478);
-            this.sectionGrid.TabIndex = 10;
             // 
             // Form1
             // 
@@ -221,9 +222,9 @@
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sectionGrid)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentSectionGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sectionGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -240,7 +241,7 @@
         private System.Windows.Forms.RichTextBox ContentBox;
         private System.Windows.Forms.TextBox sectionNumberTxt;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button editBtn;
         private System.Windows.Forms.RichTextBox finalDocBox;
         private System.Windows.Forms.TextBox titleTxt;
         private System.Windows.Forms.Label label3;

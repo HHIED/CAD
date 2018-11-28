@@ -79,14 +79,17 @@ namespace CollaborativeAuditableDocument
             Core.Instance.DeclineSection(section, Core.Instance.User);
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Firestore.Instance.StopListener(listener);
+        }
+
+        private void editBtn_Click(object sender, EventArgs e)
+        {
+            EditSection edit = new EditSection((Section)documentSectionGrid.CurrentRow.DataBoundItem);
+            edit.Show();
         }
     }
 }
