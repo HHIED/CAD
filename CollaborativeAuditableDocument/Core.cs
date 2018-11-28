@@ -48,10 +48,10 @@ namespace CollaborativeAuditableDocument {
             await Firestore.Instance.AddNewSection(section);
         }
 
-        internal void ApproveSection(Section section, string user)
+        internal async void ApproveSection(Section section, string user)
         {
             
-            bool isApproved = Firestore.Instance.ApproveSection(user, section.Id).Result;
+            bool isApproved = await Firestore.Instance.ApproveSection(user, section.Id);
         }
 
         internal void DeclineSection(Section section, string user)

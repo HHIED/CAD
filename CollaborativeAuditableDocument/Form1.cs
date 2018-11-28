@@ -24,11 +24,19 @@ namespace CollaborativeAuditableDocument
 
         private void UpdateList(List<Section> sections)
         {
-            sectionListbox.DataSource = sections.Where(x => x.ApprovedAt == null).ToList();
-            List<Section> documentSections = sections.Where(x => x.ApprovedAt != null).ToList();
-            documentListbox.DataSource = documentSections;
+            DateTime comparer = new DateTime(0, DateTimeKind.Utc);
+            List<Section> UnapprovedSection = sections.Where(x => x.ApprovedAt == comparer).ToList();
+            List<Section> documentSections = sections.Where(x => x.ApprovedAt != comparer).ToList();
             
+            this.Invoke((MethodInvoker)delegate { updateSectionGrids(UnapprovedSection, documentSections); });
             this.Invoke((MethodInvoker)delegate { UpdateDocument(documentSections); });
+        }
+
+        private void updateSectionGrids(List<Section> sections, List<Section> documentSections)
+        {
+            DateTime comparer = new DateTime(0, DateTimeKind.Utc);
+            sectionGrid.DataSource = sections;
+            documentSectionGrid.DataSource = documentSections;
         }
 
 
@@ -61,13 +69,13 @@ namespace CollaborativeAuditableDocument
 
         private void acceptBtn_Click(object sender, EventArgs e)
         {
-            Section section = (Section) sectionListbox.SelectedItem;
+            Section section = (Section) sectionGrid.CurrentRow.DataBoundItem;
             Core.Instance.ApproveSection(section, Core.Instance.User);
         }
 
         private void declineBtn_Click(object sender, EventArgs e)
         {
-            Section section = (Section)sectionListbox.SelectedItem;
+            Section section = (Section)sectionGrid.CurrentRow.DataBoundItem;
             Core.Instance.DeclineSection(section, Core.Instance.User);
         }
 
