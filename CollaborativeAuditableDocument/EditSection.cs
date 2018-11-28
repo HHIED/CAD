@@ -17,25 +17,19 @@ namespace CollaborativeAuditableDocument
 
         public EditSection(Section section)
         {
+            this.section = section;
             InitializeComponent();
             titleTxt.Text = section.Title;
             ContentBox.Text = section.Text;
             sectionNumberTxt.Text = section.Order.ToString();
-            this.section = section;
+            
         }
 
         private void editComplete_Click(object sender, EventArgs e)
         {
-            List<HistoryItem> history = section.History;
-            HistoryItem h = new HistoryItem
-            {
-                Action = 0,
-                ActionAt = DateTime.Now,
-                ActionBy = Core.Instance.User
-            };
-            history.Add(h);
-            section.History = history;
-            
+            section.Text = ContentBox.Text;
+            section.Title = titleTxt.Text;
+            section.Order = int.Parse(sectionNumberTxt.Text);
             Core.Instance.EditSection(section);
         }
     }

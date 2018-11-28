@@ -61,7 +61,7 @@ namespace CollaborativeAuditableDocument {
 
         internal void EditSection(Section section)
         {
-            throw new NotImplementedException();
+            Firestore.Instance.UpdateSection(User, section);
         }
     }
 }
