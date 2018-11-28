@@ -29,7 +29,7 @@ namespace CollaborativeAuditableDocument
             List<HistoryItem> history = section.History;
             HistoryItem h = new HistoryItem
             {
-                Action = ActionType.CREATED,
+                Action = 0,
                 ActionAt = DateTime.Now,
                 ActionBy = Core.Instance.User
             };

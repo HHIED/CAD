@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Google.Cloud.Firestore;
 
 namespace CollaborativeAuditableDocument.FirestoreEntities {
-    public enum ActionType {
-        CREATED, UPDATED, DELETED
-    }
-
+    [FirestoreData]
     public class HistoryItem {
-        public ActionType Action { get; set; }
+        [FirestoreProperty]
+        public int Action { get; set; }
+        [FirestoreProperty]
         public string ActionBy { get; set; }
+        [FirestoreProperty]
         public DateTime ActionAt { get; set; }
     }
 }

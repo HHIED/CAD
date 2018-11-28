@@ -46,7 +46,7 @@ namespace CollaborativeAuditableDocument
             List<HistoryItem> history = new List<HistoryItem>();
             HistoryItem h = new HistoryItem
             {
-                Action = ActionType.CREATED,
+                Action = 0,
                 ActionBy = Core.Instance.User
             };
             string[] approvedBy = {Core.Instance.User};

@@ -61,7 +61,9 @@ namespace CollaborativeAuditableDocument
             return docRef.Id;
         }
 
-
+        public async Task UpdateSection(Section section) {
+            DocumentReference docRef = db.Collection("section").Document(section.Id);
+        }
 
         /// <summary>
         /// Approves a section. Returns true if the section has been approved by everyone.
