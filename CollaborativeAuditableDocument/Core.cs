@@ -4,31 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollaborativeAuditableDocument
-{
-    public sealed class Core
-    {
-        private string user { get; set; }
+namespace CollaborativeAuditableDocument {
+    public sealed class Core {
+        public string User {get; set; }
         private static Core instance = null;
 
-        private Core()
-        {
+        private Core() {
         }
 
-        public static Core Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
+        public static Core Instance {
+            get {
+                if (instance == null) {
                     instance = new Core();
                 }
                 return instance;
             }
         }
 
-        public bool login(string user)
-        {
+        public bool Login(string user) {
             return true;
         }
     }
