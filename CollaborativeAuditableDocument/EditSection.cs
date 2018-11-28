@@ -21,7 +21,7 @@ namespace CollaborativeAuditableDocument
             titleTxt.Text = section.Title;
             ContentBox.Text = section.Text;
             sectionNumberTxt.Text = section.Order.ToString();
-            section = section;
+            this.section = section;
         }
 
         private void editComplete_Click(object sender, EventArgs e)
