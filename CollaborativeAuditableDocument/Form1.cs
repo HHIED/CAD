@@ -19,12 +19,20 @@ namespace CollaborativeAuditableDocument
         {
             InitializeComponent();
             
-            listener = Firestore.instance.ListenToSections(UpdateList);
+            listener = Firestore.Instance.ListenToSections(UpdateList);
         }
 
         private void UpdateList(List<Section> sections)
         {   
             sectionListbox.DataSource = sections.Where(x=>x.ApprovedAt==null).ToList();
+            List<Section> documentSections = sections.Where(x => x.ApprovedAt != null).ToList();
+            documentListbox.DataSource = documentSections;
+            finalDocBox.Clear();
+            foreach(Section s in documentSections)
+            {
+                finalDocBox.AppendText(s.Title + "\n" + s.Text + "\n\n");
+            }
+
         }
 
         private void addBtn_Click(object sender, EventArgs e)
@@ -68,7 +76,7 @@ namespace CollaborativeAuditableDocument
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Firestore.instance.StopListener(listener);
+            Firestore.Instance.StopListener(listener);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace CollaborativeAuditableDocument {
 
         public List<Section> GetSections()
         {
-            return Firestore.instance.GetSections().Result;
+            return Firestore.Instance.GetSections().Result;
         }
 
         public bool Login(string user) {
@@ -40,7 +40,7 @@ namespace CollaborativeAuditableDocument {
         internal void ApproveSection(Section section, string user)
         {
             
-            bool isApproved = Firestore.instance.ApproveSection(user, section.Id).Result;
+            bool isApproved = Firestore.Instance.ApproveSection(user, section.Id).Result;
         }
 
         internal void DeclineSection(Section section, string user)
