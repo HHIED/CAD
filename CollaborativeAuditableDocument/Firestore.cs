@@ -11,12 +11,14 @@ namespace CollaborativeAuditableDocument
 {
     public class Firestore {
         public static Firestore instance;
-        
-        public static Firestore GetFirestore() {
-            if (instance == null) {
-                instance = new Firestore();
+
+        public static Firestore Instance {
+            get {
+                if (instance == null) {
+                    instance = new Firestore();
+                }
+                return instance;
             }
-            return instance;
         }
 
         public FirestoreDb db;
@@ -54,15 +56,8 @@ namespace CollaborativeAuditableDocument
             return sections;
         }
 
-        public async Task<string> SaveSection(Section section) {
-            DocumentReference docRef = await db.Collection("sections").AddAsync(section);
-            return docRef.Id;
-        }
-
         public async Task<string> AddNewSection(Section section) {
-            CollectionReference colRef = db.Collection("sections");
-            
-            DocumentReference docRef = await colRef.AddAsync(section);
+            DocumentReference docRef = await db.Collection("sections").AddAsync(section);
             return docRef.Id;
         }
 
