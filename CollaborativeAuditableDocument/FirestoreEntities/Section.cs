@@ -17,7 +17,7 @@ namespace CollaborativeAuditableDocument.FirestoreEntities {
         [FirestoreProperty]
         public int Order { get; set; }
         [FirestoreProperty]
-        public HistoryItem[] History { get; set; }
+        public List<HistoryItem> History { get; set; }
         [FirestoreProperty]
         public string[] ApprovedBy { get; set; }
         [FirestoreProperty]

@@ -26,13 +26,20 @@ namespace CollaborativeAuditableDocument
 
         private void editComplete_Click(object sender, EventArgs e)
         {
+            List<HistoryItem> history = oldSection.History;
+            HistoryItem h = new HistoryItem
+            {
+                Action = ActionType.CREATED,
+                ActionAt = DateTime.Now,
+                ActionBy = Core.Instance.User
+            };
+            history.Add(h);
             Section section = new Section
             {
                 Title = titleTxt.Text,
                 Text = ContentBox.Text,
                 Order = int.Parse(sectionNumberTxt.Text),
-                CreatedAt = DateTime.Now,
-                CreatedBy = Core.Instance.User
+                History = history
 
             };
             Core.Instance.EditSection(oldSection, section);
