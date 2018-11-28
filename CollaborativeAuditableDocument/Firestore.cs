@@ -28,8 +28,23 @@ namespace CollaborativeAuditableDocument
         public async Task<List<Section>> GetSections() {
             CollectionReference docRef = db.Collection("sections");
             QuerySnapshot qs = await docRef.GetSnapshotAsync();
+            return ConvertToList(qs);
+        }
+
+        public FirestoreChangeListener ListenToSections(Action<List<Section>> callback) {
+            CollectionReference colRef = db.Collection("sections");
+            return colRef.Listen(snapshot => {
+                callback(ConvertToList(snapshot));
+            });
+        }
+
+        public async Task StopListener(FirestoreChangeListener listener) {
+            await listener.StopAsync();
+        }
+
+        private List<Section> ConvertToList(QuerySnapshot snapshot) {
             List<Section> sections = new List<Section>();
-            foreach(DocumentSnapshot ds in qs.Documents) {
+            foreach (DocumentSnapshot ds in snapshot.Documents) {
                 if (ds.Exists) {
                     Section s = ds.ConvertTo<Section>();
                     s.Id = ds.Id;
