@@ -44,7 +44,7 @@ namespace CollaborativeAuditableDocument
             return docRef.Id;
         }
 
-        public async Task<string> addNewSection(string username, string title, string text, int order) {
+        public async Task<string> AddNewSection(string username, string title, string text, int order) {
             CollectionReference colRef = db.Collection("sections");
             string[] approvedBy = { username };
             HistoryItem createdItem = new HistoryItem {
@@ -65,9 +65,28 @@ namespace CollaborativeAuditableDocument
             return docRef.Id;
         }
 
-        public async Task approveSection(string username, string sectionId) {
+        /// <summary>
+        /// Approves a section. Returns true if the section has been approved by everyone.
+        /// </summary>
+        /// <param name="username">Username approving</param>
+        /// <param name="sectionId">Section to approve</param>
+        /// <returns>Whether section has been approved by all or not</returns>
+        public async Task<Boolean> ApproveSection(string username, string sectionId) {
             DocumentReference docRef = db.Collection("sections").Document(sectionId);
-            
+            CollectionReference userRef = db.Collection("users");
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            if(snapshot.Exists) {
+                Section section = snapshot.ConvertTo<Section>();
+                if(!section.ApprovedBy.Contains(username)) {
+                    await docRef.UpdateAsync("ApprovedBy", FieldValue.ArrayUnion(username));
+                }
+                QuerySnapshot userSnapshots = await userRef.GetSnapshotAsync();
+                if(userSnapshots.Count <= section.ApprovedBy.Count()) {
+                    await docRef.UpdateAsync("ApprovedAt", DateTime.Now);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
