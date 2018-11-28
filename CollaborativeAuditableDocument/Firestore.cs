@@ -88,5 +88,11 @@ namespace CollaborativeAuditableDocument
             }
             return false;
         }
+
+        public async Task<Boolean> CheckUsername(string username) {
+            DocumentReference docRef = db.Collection("users").Document(username);
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            return snapshot.Exists;
+        }
     }
 }
