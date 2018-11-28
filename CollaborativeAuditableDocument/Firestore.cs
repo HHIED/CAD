@@ -28,13 +28,13 @@ namespace CollaborativeAuditableDocument
         }
 
         public async Task<List<Section>> GetSections() {
-            CollectionReference docRef = db.Collection("sections");
+            Query docRef = db.Collection("sections").OrderBy("Order");
             QuerySnapshot qs = await docRef.GetSnapshotAsync();
             return ConvertToList(qs);
         }
 
         public FirestoreChangeListener ListenToSections(Action<List<Section>> callback) {
-            CollectionReference colRef = db.Collection("sections");
+            Query colRef = db.Collection("sections").OrderBy("Order");
             return colRef.Listen(snapshot => {
                 callback(ConvertToList(snapshot));
             });
@@ -56,14 +56,30 @@ namespace CollaborativeAuditableDocument
             return sections;
         }
 
-        public async Task<string> AddNewSection(Section section) {
+        public async Task<string> AddNewSection(string username, Section section) {
+            Query heigherOrder = db.Collection("sections").WhereGreaterThanOrEqualTo("Order", section.Order);
+            QuerySnapshot querySnapshot = await heigherOrder.GetSnapshotAsync();
+            Dictionary<string, int> newOrders = new Dictionary<string, int>();
+            foreach(DocumentSnapshot doc in querySnapshot.Documents) {
+                Section s = doc.ConvertTo<Section>();
+                newOrders.Add(doc.Id, doc.GetValue<int>("Order"));
+            }
+
+            WriteBatch batch = db.StartBatch();
+
+            foreach(KeyValuePair<string, int> entry in newOrders) {
+
+            }
+
+            await batch.CommitAsync();
+
             DocumentReference docRef = await db.Collection("sections").AddAsync(section);
             return docRef.Id;
         }
 
         public async Task UpdateSection(string username, Section section) {
             DocumentReference docRef = db.Collection("section").Document(section.Id);
-            string[] approvedBy = new string[] { "username" };
+            string[] approvedBy = new string[] { username };
             Dictionary<string, object> updates = new Dictionary<string, object> {
                 { "Title", section.Title },
                 { "Text", section.Text },
