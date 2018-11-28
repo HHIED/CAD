@@ -30,7 +30,6 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.sectionListbox = new System.Windows.Forms.ListBox();
             this.titleTxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.addBtn = new System.Windows.Forms.Button();
@@ -41,12 +40,15 @@
             this.ContentBox = new System.Windows.Forms.RichTextBox();
             this.sectionNumberTxt = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.documentListbox = new System.Windows.Forms.ListBox();
             this.button2 = new System.Windows.Forms.Button();
             this.finalDocBox = new System.Windows.Forms.RichTextBox();
+            this.documentSectionGrid = new System.Windows.Forms.DataGridView();
+            this.sectionGrid = new System.Windows.Forms.DataGridView();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.documentSectionGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sectionGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -62,7 +64,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.sectionListbox);
+            this.tabPage1.Controls.Add(this.sectionGrid);
             this.tabPage1.Controls.Add(this.titleTxt);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.addBtn);
@@ -79,14 +81,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Sections";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // sectionListbox
-            // 
-            this.sectionListbox.FormattingEnabled = true;
-            this.sectionListbox.Location = new System.Drawing.Point(492, 16);
-            this.sectionListbox.Name = "sectionListbox";
-            this.sectionListbox.Size = new System.Drawing.Size(531, 485);
-            this.sectionListbox.TabIndex = 10;
             // 
             // titleTxt
             // 
@@ -169,7 +163,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.documentListbox);
+            this.tabPage2.Controls.Add(this.documentSectionGrid);
             this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.finalDocBox);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -179,14 +173,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Document";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // documentListbox
-            // 
-            this.documentListbox.FormattingEnabled = true;
-            this.documentListbox.Location = new System.Drawing.Point(17, 24);
-            this.documentListbox.Name = "documentListbox";
-            this.documentListbox.Size = new System.Drawing.Size(488, 472);
-            this.documentListbox.TabIndex = 3;
             // 
             // button2
             // 
@@ -206,6 +192,23 @@
             this.finalDocBox.TabIndex = 1;
             this.finalDocBox.Text = "";
             // 
+            // documentSectionGrid
+            // 
+            this.documentSectionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.documentSectionGrid.Location = new System.Drawing.Point(17, 24);
+            this.documentSectionGrid.Name = "documentSectionGrid";
+            this.documentSectionGrid.Size = new System.Drawing.Size(501, 482);
+            this.documentSectionGrid.TabIndex = 3;
+            // 
+            // sectionGrid
+            // 
+            this.sectionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.sectionGrid.Location = new System.Drawing.Point(492, 33);
+            this.sectionGrid.Name = "sectionGrid";
+            this.sectionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.sectionGrid.Size = new System.Drawing.Size(549, 478);
+            this.sectionGrid.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,6 +222,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.documentSectionGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sectionGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -239,8 +244,8 @@
         private System.Windows.Forms.RichTextBox finalDocBox;
         private System.Windows.Forms.TextBox titleTxt;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListBox sectionListbox;
-        private System.Windows.Forms.ListBox documentListbox;
+        private System.Windows.Forms.DataGridView documentSectionGrid;
+        private System.Windows.Forms.DataGridView sectionGrid;
     }
 }
 
