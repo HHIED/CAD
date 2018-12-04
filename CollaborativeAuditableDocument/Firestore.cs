@@ -61,7 +61,7 @@ namespace CollaborativeAuditableDocument
             section.History = new List<HistoryItem>();
             section.History.Add(new HistoryItem {
                 Action = 0,
-                ActionAt = new Timestamp(),
+                ActionAt = Timestamp.GetCurrentTimestamp(),
                 ActionBy = username
             });
             DocumentReference docRef = await db.Collection("sections").AddAsync(section);
@@ -82,7 +82,7 @@ namespace CollaborativeAuditableDocument
             await docRef.UpdateAsync("History", FieldValue.ArrayUnion(new HistoryItem {
                 Action = 1,
                 ActionBy = username,
-                ActionAt = new Timestamp()
+                ActionAt = Timestamp.GetCurrentTimestamp()
             }));
         }
 
@@ -122,11 +122,12 @@ namespace CollaborativeAuditableDocument
             if(snapshot.Exists) {
                 Section section = snapshot.ConvertTo<Section>();
                 if(!section.ApprovedBy.Contains(username)) {
+                    section.ApprovedBy.Add(username);
                     await docRef.UpdateAsync("ApprovedBy", FieldValue.ArrayUnion(username));
                 }
                 QuerySnapshot userSnapshots = await userRef.GetSnapshotAsync();
                 if(userSnapshots.Count <= section.ApprovedBy.Count()) {
-                    await docRef.UpdateAsync("ApprovedAt", DateTime.Now);
+                    await docRef.UpdateAsync("ApprovedAt", Timestamp.GetCurrentTimestamp());
                     return true;
                 }
             }

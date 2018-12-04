@@ -24,7 +24,6 @@ namespace CollaborativeAuditableDocument
 
         private void UpdateList(List<Section> sections)
         {
-            Timestamp comparer = new Timestamp();
             List<Section> UnapprovedSection = sections.Where(x => x.ApprovedAt == null).ToList();
             List<Section> documentSections = sections.Where(x => x.ApprovedAt != null).ToList();
             
@@ -52,7 +51,8 @@ namespace CollaborativeAuditableDocument
 
         private void addBtn_Click(object sender, EventArgs e)
         {
-            string[] approvedBy = {Core.Instance.User};
+            List<string> approvedBy = new List<string>();
+            approvedBy.Add(Core.Instance.User);
             Section section = new Section
             {
                 Title = titleTxt.Text,

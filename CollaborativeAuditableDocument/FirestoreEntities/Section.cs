@@ -19,7 +19,7 @@ namespace CollaborativeAuditableDocument.FirestoreEntities {
         [FirestoreProperty]
         public List<HistoryItem> History { get; set; }
         [FirestoreProperty]
-        public string[] ApprovedBy { get; set; }
+        public List<string> ApprovedBy { get; set; }
         [FirestoreProperty]
         public Timestamp? ApprovedAt { get; set; }
     }
