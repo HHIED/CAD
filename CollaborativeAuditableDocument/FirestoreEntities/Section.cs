@@ -22,5 +22,11 @@ namespace CollaborativeAuditableDocument.FirestoreEntities {
         public List<string> ApprovedBy { get; set; }
         [FirestoreProperty]
         public Timestamp? ApprovedAt { get; set; }
+
+        public SectionUI ToSectionUI()
+        {
+            SectionUI s = new SectionUI(this);
+            return s;
+        }
     }
 }

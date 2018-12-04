@@ -27,23 +27,33 @@ namespace CollaborativeAuditableDocument
             List<Section> UnapprovedSection = sections.Where(x => x.ApprovedAt == null).ToList();
             List<Section> documentSections = sections.Where(x => x.ApprovedAt != null).ToList();
             
-            this.Invoke((MethodInvoker)delegate { updateSectionGrids(UnapprovedSection, documentSections); });
-            this.Invoke((MethodInvoker)delegate { UpdateDocument(documentSections); });
+            this.Invoke((MethodInvoker)delegate { updateSectionGrids(ListFromSections(UnapprovedSection), ListFromSections(documentSections)); });
+            this.Invoke((MethodInvoker)delegate { UpdateDocument(ListFromSections(documentSections)); });
         }
 
-        private void updateSectionGrids(List<Section> sections, List<Section> documentSections)
+        private void updateSectionGrids(List<SectionUI> sections, List<SectionUI> documentSections)
         {
             DateTime comparer = new DateTime(0, DateTimeKind.Utc);
             sectionGrid.DataSource = sections;
             documentSectionGrid.DataSource = documentSections;
         }
 
+        private List<SectionUI> ListFromSections(List<Section> sections)
+        {
+            List<SectionUI> sectionUIs = new List<SectionUI>();
+            foreach(Section s in sections)
+            {
+                sectionUIs.Add(s.ToSectionUI());
+            }
+            return sectionUIs;
+        }
 
 
-        private void UpdateDocument(List<Section> sections)
+
+        private void UpdateDocument(List<SectionUI> sections)
         {
             finalDocBox.Clear();
-            foreach (Section s in sections)
+            foreach (SectionUI s in sections)
             {
                 finalDocBox.AppendText(s.Title + "\n" + s.Text + "\n\n");
             }
@@ -67,14 +77,15 @@ namespace CollaborativeAuditableDocument
 
         private void acceptBtn_Click(object sender, EventArgs e)
         {
-            Section section = (Section) sectionGrid.CurrentRow.DataBoundItem;
-            Core.Instance.ApproveSection(section, Core.Instance.User);
+            SectionUI section = (SectionUI) sectionGrid.CurrentRow.DataBoundItem;
+
+            Core.Instance.ApproveSection(section.ToSection(), Core.Instance.User);
         }
 
         private void declineBtn_Click(object sender, EventArgs e)
         {
-            Section section = (Section)sectionGrid.CurrentRow.DataBoundItem;
-            Core.Instance.DeclineSection(section, Core.Instance.User);
+            SectionUI section = (SectionUI)sectionGrid.CurrentRow.DataBoundItem;
+            Core.Instance.DeclineSection(section.ToSection(), Core.Instance.User);
         }
 
 
@@ -86,7 +97,8 @@ namespace CollaborativeAuditableDocument
 
         private void editBtn_Click(object sender, EventArgs e)
         {
-            EditSection edit = new EditSection((Section)documentSectionGrid.CurrentRow.DataBoundItem);
+            SectionUI s = (SectionUI)documentSectionGrid.CurrentRow.DataBoundItem;
+            EditSection edit = new EditSection(s.ToSection());
             edit.Show();
         }
     }

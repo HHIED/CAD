@@ -59,9 +59,9 @@ namespace CollaborativeAuditableDocument {
             throw new NotImplementedException();
         }
 
-        internal void EditSection(Section section)
+        internal async void EditSection(Section section)
         {
-            Firestore.Instance.UpdateSection(User, section);
+            await Firestore.Instance.UpdateSection(User, section);
         }
     }
 }
