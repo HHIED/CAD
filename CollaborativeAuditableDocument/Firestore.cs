@@ -70,7 +70,7 @@ namespace CollaborativeAuditableDocument
         }
 
         public async Task UpdateSection(string username, Section section) {
-            DocumentReference docRef = db.Collection("section").Document(section.Id);
+            DocumentReference docRef = db.Collection("sections").Document(section.Id);
             string[] approvedBy = new string[] { username };
             Dictionary<string, object> updates = new Dictionary<string, object> {
                 { "Title", section.Title },
