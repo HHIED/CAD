@@ -21,6 +21,6 @@ namespace CollaborativeAuditableDocument.FirestoreEntities {
         [FirestoreProperty]
         public string[] ApprovedBy { get; set; }
         [FirestoreProperty]
-        public DateTime ApprovedAt { get; set; }
+        public Timestamp? ApprovedAt { get; set; }
     }
 }

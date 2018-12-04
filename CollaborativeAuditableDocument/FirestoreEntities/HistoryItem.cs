@@ -13,6 +13,6 @@ namespace CollaborativeAuditableDocument.FirestoreEntities {
         [FirestoreProperty]
         public string ActionBy { get; set; }
         [FirestoreProperty]
-        public DateTime ActionAt { get; set; }
+        public Timestamp ActionAt { get; set; }
     }
 }

@@ -24,9 +24,9 @@ namespace CollaborativeAuditableDocument
 
         private void UpdateList(List<Section> sections)
         {
-            DateTime comparer = new DateTime(0, DateTimeKind.Utc);
-            List<Section> UnapprovedSection = sections.Where(x => x.ApprovedAt == comparer).ToList();
-            List<Section> documentSections = sections.Where(x => x.ApprovedAt != comparer).ToList();
+            Timestamp comparer = new Timestamp();
+            List<Section> UnapprovedSection = sections.Where(x => x.ApprovedAt == null).ToList();
+            List<Section> documentSections = sections.Where(x => x.ApprovedAt != null).ToList();
             
             this.Invoke((MethodInvoker)delegate { updateSectionGrids(UnapprovedSection, documentSections); });
             this.Invoke((MethodInvoker)delegate { UpdateDocument(documentSections); });
@@ -53,11 +53,9 @@ namespace CollaborativeAuditableDocument
         private void addBtn_Click(object sender, EventArgs e)
         {
             string[] approvedBy = {Core.Instance.User};
-            DateTime time = new DateTime(0, DateTimeKind.Utc);
             Section section = new Section
             {
                 Title = titleTxt.Text,
-                ApprovedAt = time,
                 Text = ContentBox.Text,
                 Order = int.Parse(sectionNumberTxt.Text),
                 ApprovedBy = approvedBy

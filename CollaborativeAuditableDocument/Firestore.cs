@@ -56,13 +56,17 @@ namespace CollaborativeAuditableDocument
             return sections;
         }
 
-        public async Task<string> AddNewSection(string username, Section section) {
+        public async Task<Section> AddNewSection(string username, Section section) {
             await UpdateOrders(section.Order);
-
-            //TODO: Finish add new section.
-
+            section.History = new List<HistoryItem>();
+            section.History.Add(new HistoryItem {
+                Action = 0,
+                ActionAt = new Timestamp(),
+                ActionBy = username
+            });
             DocumentReference docRef = await db.Collection("sections").AddAsync(section);
-            return docRef.Id;
+            section.Id = docRef.Id;
+            return section;
         }
 
         public async Task UpdateSection(string username, Section section) {
@@ -78,17 +82,21 @@ namespace CollaborativeAuditableDocument
             await docRef.UpdateAsync("History", FieldValue.ArrayUnion(new HistoryItem {
                 Action = 1,
                 ActionBy = username,
-                ActionAt = DateTime.Now
+                ActionAt = new Timestamp()
             }));
         }
 
+        /// <summary>
+        /// Move all sections at the same order or higher one up to fit the new order.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         private async Task UpdateOrders(int order) {
             Query heigherOrder = db.Collection("sections").WhereGreaterThanOrEqualTo("Order", order);
             QuerySnapshot querySnapshot = await heigherOrder.GetSnapshotAsync();
             Dictionary<string, int> newOrders = new Dictionary<string, int>();
             foreach (DocumentSnapshot doc in querySnapshot.Documents) {
-                Section s = doc.ConvertTo<Section>();
-                newOrders.Add(doc.Id, doc.GetValue<int>("Order"));
+                newOrders.Add(doc.Id, doc.GetValue<int>("Order") + 1);
             }
 
             WriteBatch batch = db.StartBatch();
