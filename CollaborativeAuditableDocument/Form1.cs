@@ -101,5 +101,12 @@ namespace CollaborativeAuditableDocument
             EditSection edit = new EditSection(s.ToSection());
             edit.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SectionUI s = (SectionUI)documentSectionGrid.CurrentRow.DataBoundItem;
+            Form history = new History(s);
+            history.Show();
+        }
     }
 }

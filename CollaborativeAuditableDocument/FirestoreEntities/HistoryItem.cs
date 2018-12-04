@@ -14,5 +14,10 @@ namespace CollaborativeAuditableDocument.FirestoreEntities {
         public string ActionBy { get; set; }
         [FirestoreProperty]
         public Timestamp ActionAt { get; set; }
+
+        public string ToString()
+        {
+            return "Action: " + Action + " Action By: " + ActionBy + " Action time: " + ActionAt.ToString() + "\n";
+        }
     }
 }

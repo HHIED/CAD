@@ -21,7 +21,6 @@ namespace CollaborativeAuditableDocument
             InitializeComponent();
             titleTxt.Text = section.Title;
             ContentBox.Text = section.Text;
-            sectionNumberTxt.Text = section.Order.ToString();
             
         }
 
@@ -29,8 +28,8 @@ namespace CollaborativeAuditableDocument
         {
             section.Text = ContentBox.Text;
             section.Title = titleTxt.Text;
-            section.Order = int.Parse(sectionNumberTxt.Text);
             Core.Instance.EditSection(section);
+            this.Close();
         }
     }
 }

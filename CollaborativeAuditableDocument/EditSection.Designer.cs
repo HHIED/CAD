@@ -32,9 +32,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.editComplete = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.ContentBox = new System.Windows.Forms.RichTextBox();
-            this.sectionNumberTxt = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // titleTxt
@@ -72,15 +70,6 @@
             this.label2.TabIndex = 13;
             this.label2.Text = "Content";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 56);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Section number";
-            // 
             // ContentBox
             // 
             this.ContentBox.Location = new System.Drawing.Point(12, 111);
@@ -88,13 +77,6 @@
             this.ContentBox.Size = new System.Drawing.Size(377, 156);
             this.ContentBox.TabIndex = 11;
             this.ContentBox.Text = "";
-            // 
-            // sectionNumberTxt
-            // 
-            this.sectionNumberTxt.Location = new System.Drawing.Point(15, 72);
-            this.sectionNumberTxt.Name = "sectionNumberTxt";
-            this.sectionNumberTxt.Size = new System.Drawing.Size(100, 20);
-            this.sectionNumberTxt.TabIndex = 10;
             // 
             // EditSection
             // 
@@ -105,9 +87,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.editComplete);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.ContentBox);
-            this.Controls.Add(this.sectionNumberTxt);
             this.Name = "EditSection";
             this.Text = "EditSection";
             this.ResumeLayout(false);
@@ -121,8 +101,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button editComplete;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox ContentBox;
-        private System.Windows.Forms.TextBox sectionNumberTxt;
     }
 }
